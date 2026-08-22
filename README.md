@@ -18,15 +18,13 @@
 name: Deep Panchal
 role: B.Tech Computer Science Engineering Student
 focus:
-  - Frontend Development
   - Full-Stack Development
   - C++ & Data Structures and Algorithms
   - AI-powered Applications
 currently_learning:
-  - React.js
+  - JavaScript
   - C++ & DSA
   - Full-Stack Development
-  - AI/ML
 status: 🟢 Building projects and improving every day
 ```
 
@@ -35,6 +33,7 @@ I'm a **2nd-year Computer Science Engineering student** who enjoys building prac
 ## 🏆 Achievements
 
 - 🥇 **1st Position — Hack Nexus Hackathon**
+- 🥈 **2nd Position - Robo fest**
 - 🚀 Participated in **Smart India Hackathon (SIH)**
 - 💡 Built and presented real-world problem-solving projects through hackathons and academic work
 
