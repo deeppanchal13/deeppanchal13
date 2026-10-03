@@ -1,0 +1,4 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48" shape-rendering="crispEdges" role="img">
+<defs></defs>
+<rect width="48" height="48" rx="10" fill="#242938"/><g stroke="#6f8a6f" stroke-width="2"><path d="M24 12L14 26M24 12L34 26M14 26L9 38M14 26L19 38M34 26L29 38M34 26L39 38"/></g><g fill="#00ff66"><rect x="20" y="8" width="8" height="8"/><rect x="10" y="22" width="8" height="8"/><rect x="30" y="22" width="8" height="8"/></g><g fill="#e6efe6"><rect x="5" y="36" width="8" height="6"/><rect x="15" y="36" width="8" height="6"/><rect x="25" y="36" width="8" height="6"/><rect x="35" y="36" width="8" height="6"/></g>
+</svg>
