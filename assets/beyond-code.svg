@@ -1,45 +1,58 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="830" height="182" viewBox="0 0 830 182" shape-rendering="crispEdges" role="img">
+from pathlib import Path
+import re
+
+src = Path("/mnt/data/Pasted text(3).txt").read_text(encoding="utf-8")
+
+# Extract the six cards we want:
+# 01 Cricket, 02 Chess, 03 Badminton, 04 Volleyball, 05 Music, 08 English.
+# Then reposition the original 04 and 08 cards left by 211px and renumber them.
+parts = re.findall(r'(<rect x="[^"]+" y="[^"]+" width="196" height="83"[^>]*>.*?</svg>)', src, flags=re.S)
+
+# More reliable: split the source into top/bottom card groups based on the outer rect positions.
+# We construct the SVG by extracting each card from its opening rect through its following text.
+card_starts = [
+    '<rect x="0.5" y="0.5"',
+    '<rect x="211.5" y="0.5"',
+    '<rect x="422.5" y="0.5"',
+    '<rect x="633.5" y="0.5"',
+    '<rect x="0.5" y="98.5"',
+    '<rect x="211.5" y="98.5"',
+    '<rect x="422.5" y="98.5"',
+    '<rect x="633.5" y="98.5"',
+]
+
+# Find each card block manually from start rect to the next card's start, or </svg>.
+blocks = []
+for i, start in enumerate(card_starts):
+    s = src.find(start)
+    if s < 0:
+        raise ValueError(f"Missing card start: {start}")
+    next_positions = [src.find(x, s + 1) for x in card_starts]
+    next_positions = [p for p in next_positions if p > s]
+    e = min(next_positions) if next_positions else src.find("</svg>", s)
+    blocks.append(src[s:e])
+
+# Desired order: 01,02,03,04=old 04, 05=old 05, 06=old 08
+selected = [blocks[0], blocks[1], blocks[2], blocks[3], blocks[4], blocks[7]]
+
+# Transform old 04 top and old 08 bottom left by 211px.
+selected[3] = '<g transform="translate(-211 0)">' + selected[3] + '</g>'
+selected[5] = '<g transform="translate(-211 0)">' + selected[5] + '</g>'
+
+# Renumber visible labels: old 04 stays 04, old 05 -> 05, old 08 -> 06.
+# Actually after removing 06/07, Music should be 05 and English 06.
+# The original Music is already 05; English is 08, so only English changes.
+selected[5] = selected[5].replace('>08</text>', '>06</text>')
+
+# Build the six-card SVG, 3 columns x 2 rows.
+# Shift the bottom row up unchanged (already y=98.5), so layout remains compact.
+body = "\n".join(selected)
+svg = f'''<svg xmlns="http://www.w3.org/2000/svg" width="620" height="182" viewBox="0 0 620 182" shape-rendering="crispEdges" role="img">
 <defs></defs>
-<rect x="0.5" y="0.5" width="196" height="83" fill="#0b120b" stroke="#1f3a1f"/>
-<rect x="10" y="10" width="6" height="6" fill="#00ff66"/>
-<text x="187" y="17" text-anchor="end" font-family="'Courier New', Consolas, 'DejaVu Sans Mono', monospace" font-size="11" fill="#6f8a6f">01</text>
-<path d="M13 32h3v3h-3zM16 32h3v3h-3zM19 32h3v3h-3zM10 35h3v3h-3zM22 35h3v3h-3zM10 38h3v3h-3zM10 41h3v3h-3zM10 44h3v3h-3zM10 47h3v3h-3zM22 47h3v3h-3zM13 50h3v3h-3zM16 50h3v3h-3zM19 50h3v3h-3zM28 32h3v3h-3zM31 32h3v3h-3zM34 32h3v3h-3zM37 32h3v3h-3zM28 35h3v3h-3zM40 35h3v3h-3zM28 38h3v3h-3zM40 38h3v3h-3zM28 41h3v3h-3zM31 41h3v3h-3zM34 41h3v3h-3zM37 41h3v3h-3zM28 44h3v3h-3zM34 44h3v3h-3zM28 47h3v3h-3zM37 47h3v3h-3zM28 50h3v3h-3zM40 50h3v3h-3zM49 32h3v3h-3zM52 32h3v3h-3zM55 32h3v3h-3zM52 35h3v3h-3zM52 38h3v3h-3zM52 41h3v3h-3zM52 44h3v3h-3zM52 47h3v3h-3zM49 50h3v3h-3zM52 50h3v3h-3zM55 50h3v3h-3zM67 32h3v3h-3zM70 32h3v3h-3zM73 32h3v3h-3zM64 35h3v3h-3zM76 35h3v3h-3zM64 38h3v3h-3zM64 41h3v3h-3zM64 44h3v3h-3zM64 47h3v3h-3zM76 47h3v3h-3zM67 50h3v3h-3zM70 50h3v3h-3zM73 50h3v3h-3zM82 32h3v3h-3zM94 32h3v3h-3zM82 35h3v3h-3zM91 35h3v3h-3zM82 38h3v3h-3zM88 38h3v3h-3zM82 41h3v3h-3zM85 41h3v3h-3zM82 44h3v3h-3zM88 44h3v3h-3zM82 47h3v3h-3zM91 47h3v3h-3zM82 50h3v3h-3zM94 50h3v3h-3zM100 32h3v3h-3zM103 32h3v3h-3zM106 32h3v3h-3zM109 32h3v3h-3zM112 32h3v3h-3zM100 35h3v3h-3zM100 38h3v3h-3zM100 41h3v3h-3zM103 41h3v3h-3zM106 41h3v3h-3zM109 41h3v3h-3zM100 44h3v3h-3zM100 47h3v3h-3zM100 50h3v3h-3zM103 50h3v3h-3zM106 50h3v3h-3zM109 50h3v3h-3zM112 50h3v3h-3zM118 32h3v3h-3zM121 32h3v3h-3zM124 32h3v3h-3zM127 32h3v3h-3zM130 32h3v3h-3zM124 35h3v3h-3zM124 38h3v3h-3zM124 41h3v3h-3zM124 44h3v3h-3zM124 47h3v3h-3zM124 50h3v3h-3z" fill="#e6efe6" />
-<text x="10" y="72" font-family="'Courier New', Consolas, 'DejaVu Sans Mono', monospace" font-size="12" fill="#00ff66">// field</text>
-<rect x="211.5" y="0.5" width="196" height="83" fill="#0b120b" stroke="#1f3a1f"/>
-<rect x="221" y="10" width="6" height="6" fill="#00ff66"/>
-<text x="398" y="17" text-anchor="end" font-family="'Courier New', Consolas, 'DejaVu Sans Mono', monospace" font-size="11" fill="#6f8a6f">02</text>
-<path d="M224 32h3v3h-3zM227 32h3v3h-3zM230 32h3v3h-3zM221 35h3v3h-3zM233 35h3v3h-3zM221 38h3v3h-3zM221 41h3v3h-3zM221 44h3v3h-3zM221 47h3v3h-3zM233 47h3v3h-3zM224 50h3v3h-3zM227 50h3v3h-3zM230 50h3v3h-3zM239 32h3v3h-3zM251 32h3v3h-3zM239 35h3v3h-3zM251 35h3v3h-3zM239 38h3v3h-3zM251 38h3v3h-3zM239 41h3v3h-3zM242 41h3v3h-3zM245 41h3v3h-3zM248 41h3v3h-3zM251 41h3v3h-3zM239 44h3v3h-3zM251 44h3v3h-3zM239 47h3v3h-3zM251 47h3v3h-3zM239 50h3v3h-3zM251 50h3v3h-3zM257 32h3v3h-3zM260 32h3v3h-3zM263 32h3v3h-3zM266 32h3v3h-3zM269 32h3v3h-3zM257 35h3v3h-3zM257 38h3v3h-3zM257 41h3v3h-3zM260 41h3v3h-3zM263 41h3v3h-3zM266 41h3v3h-3zM257 44h3v3h-3zM257 47h3v3h-3zM257 50h3v3h-3zM260 50h3v3h-3zM263 50h3v3h-3zM266 50h3v3h-3zM269 50h3v3h-3zM278 32h3v3h-3zM281 32h3v3h-3zM284 32h3v3h-3zM287 32h3v3h-3zM275 35h3v3h-3zM275 38h3v3h-3zM278 41h3v3h-3zM281 41h3v3h-3zM284 41h3v3h-3zM287 44h3v3h-3zM287 47h3v3h-3zM275 50h3v3h-3zM278 50h3v3h-3zM281 50h3v3h-3zM284 50h3v3h-3zM296 32h3v3h-3zM299 32h3v3h-3zM302 32h3v3h-3zM305 32h3v3h-3zM293 35h3v3h-3zM293 38h3v3h-3zM296 41h3v3h-3zM299 41h3v3h-3zM302 41h3v3h-3zM305 44h3v3h-3zM305 47h3v3h-3zM293 50h3v3h-3zM296 50h3v3h-3zM299 50h3v3h-3zM302 50h3v3h-3z" fill="#e6efe6" />
-<text x="221" y="72" font-family="'Courier New', Consolas, 'DejaVu Sans Mono', monospace" font-size="12" fill="#00ff66">// board</text>
-<rect x="422.5" y="0.5" width="196" height="83" fill="#0b120b" stroke="#1f3a1f"/>
-<rect x="432" y="10" width="6" height="6" fill="#00ff66"/>
-<text x="609" y="17" text-anchor="end" font-family="'Courier New', Consolas, 'DejaVu Sans Mono', monospace" font-size="11" fill="#6f8a6f">03</text>
-<path d="M432 32h3v3h-3zM435 32h3v3h-3zM438 32h3v3h-3zM441 32h3v3h-3zM432 35h3v3h-3zM444 35h3v3h-3zM432 38h3v3h-3zM444 38h3v3h-3zM432 41h3v3h-3zM435 41h3v3h-3zM438 41h3v3h-3zM441 41h3v3h-3zM432 44h3v3h-3zM444 44h3v3h-3zM432 47h3v3h-3zM444 47h3v3h-3zM432 50h3v3h-3zM435 50h3v3h-3zM438 50h3v3h-3zM441 50h3v3h-3zM453 32h3v3h-3zM456 32h3v3h-3zM459 32h3v3h-3zM450 35h3v3h-3zM462 35h3v3h-3zM450 38h3v3h-3zM462 38h3v3h-3zM450 41h3v3h-3zM453 41h3v3h-3zM456 41h3v3h-3zM459 41h3v3h-3zM462 41h3v3h-3zM450 44h3v3h-3zM462 44h3v3h-3zM450 47h3v3h-3zM462 47h3v3h-3zM450 50h3v3h-3zM462 50h3v3h-3zM468 32h3v3h-3zM471 32h3v3h-3zM474 32h3v3h-3zM477 32h3v3h-3zM468 35h3v3h-3zM480 35h3v3h-3zM468 38h3v3h-3zM480 38h3v3h-3zM468 41h3v3h-3zM480 41h3v3h-3zM468 44h3v3h-3zM480 44h3v3h-3zM468 47h3v3h-3zM480 47h3v3h-3zM468 50h3v3h-3zM471 50h3v3h-3zM474 50h3v3h-3zM477 50h3v3h-3zM486 32h3v3h-3zM498 32h3v3h-3zM486 35h3v3h-3zM489 35h3v3h-3zM495 35h3v3h-3zM498 35h3v3h-3zM486 38h3v3h-3zM492 38h3v3h-3zM498 38h3v3h-3zM486 41h3v3h-3zM492 41h3v3h-3zM498 41h3v3h-3zM486 44h3v3h-3zM498 44h3v3h-3zM486 47h3v3h-3zM498 47h3v3h-3zM486 50h3v3h-3zM498 50h3v3h-3zM507 32h3v3h-3zM510 32h3v3h-3zM513 32h3v3h-3zM510 35h3v3h-3zM510 38h3v3h-3zM510 41h3v3h-3zM510 44h3v3h-3zM510 47h3v3h-3zM507 50h3v3h-3zM510 50h3v3h-3zM513 50h3v3h-3zM522 32h3v3h-3zM534 32h3v3h-3zM522 35h3v3h-3zM525 35h3v3h-3zM534 35h3v3h-3zM522 38h3v3h-3zM528 38h3v3h-3zM534 38h3v3h-3zM522 41h3v3h-3zM531 41h3v3h-3zM534 41h3v3h-3zM522 44h3v3h-3zM534 44h3v3h-3zM522 47h3v3h-3zM534 47h3v3h-3zM522 50h3v3h-3zM534 50h3v3h-3zM540 32h3v3h-3zM543 32h3v3h-3zM546 32h3v3h-3zM549 32h3v3h-3zM552 32h3v3h-3zM546 35h3v3h-3zM546 38h3v3h-3zM546 41h3v3h-3zM546 44h3v3h-3zM546 47h3v3h-3zM546 50h3v3h-3zM561 32h3v3h-3zM564 32h3v3h-3zM567 32h3v3h-3zM558 35h3v3h-3zM570 35h3v3h-3zM558 38h3v3h-3zM570 38h3v3h-3zM558 41h3v3h-3zM570 41h3v3h-3zM558 44h3v3h-3zM570 44h3v3h-3zM558 47h3v3h-3zM570 47h3v3h-3zM561 50h3v3h-3zM564 50h3v3h-3zM567 50h3v3h-3zM576 32h3v3h-3zM588 32h3v3h-3zM576 35h3v3h-3zM579 35h3v3h-3zM588 35h3v3h-3zM576 38h3v3h-3zM582 38h3v3h-3zM588 38h3v3h-3zM576 41h3v3h-3zM585 41h3v3h-3zM588 41h3v3h-3zM576 44h3v3h-3zM588 44h3v3h-3zM576 47h3v3h-3zM588 47h3v3h-3zM576 50h3v3h-3zM588 50h3v3h-3z" fill="#e6efe6" />
-<text x="432" y="72" font-family="'Courier New', Consolas, 'DejaVu Sans Mono', monospace" font-size="12" fill="#00ff66">// court</text>
-<rect x="633.5" y="0.5" width="196" height="83" fill="#0b120b" stroke="#1f3a1f"/>
-<rect x="643" y="10" width="6" height="6" fill="#00ff66"/>
-<text x="820" y="17" text-anchor="end" font-family="'Courier New', Consolas, 'DejaVu Sans Mono', monospace" font-size="11" fill="#6f8a6f">04</text>
-<path d="M643 32h3v3h-3zM655 32h3v3h-3zM643 35h3v3h-3zM655 35h3v3h-3zM643 38h3v3h-3zM655 38h3v3h-3zM643 41h3v3h-3zM655 41h3v3h-3zM643 44h3v3h-3zM655 44h3v3h-3zM646 47h3v3h-3zM652 47h3v3h-3zM649 50h3v3h-3zM664 32h3v3h-3zM667 32h3v3h-3zM670 32h3v3h-3zM661 35h3v3h-3zM673 35h3v3h-3zM661 38h3v3h-3zM673 38h3v3h-3zM661 41h3v3h-3zM673 41h3v3h-3zM661 44h3v3h-3zM673 44h3v3h-3zM661 47h3v3h-3zM673 47h3v3h-3zM664 50h3v3h-3zM667 50h3v3h-3zM670 50h3v3h-3zM679 32h3v3h-3zM679 35h3v3h-3zM679 38h3v3h-3zM679 41h3v3h-3zM679 44h3v3h-3zM679 47h3v3h-3zM679 50h3v3h-3zM682 50h3v3h-3zM685 50h3v3h-3zM688 50h3v3h-3zM691 50h3v3h-3zM697 32h3v3h-3zM697 35h3v3h-3zM697 38h3v3h-3zM697 41h3v3h-3zM697 44h3v3h-3zM697 47h3v3h-3zM697 50h3v3h-3zM700 50h3v3h-3zM703 50h3v3h-3zM706 50h3v3h-3zM709 50h3v3h-3zM715 32h3v3h-3zM718 32h3v3h-3zM721 32h3v3h-3zM724 32h3v3h-3zM727 32h3v3h-3zM715 35h3v3h-3zM715 38h3v3h-3zM715 41h3v3h-3zM718 41h3v3h-3zM721 41h3v3h-3zM724 41h3v3h-3zM715 44h3v3h-3zM715 47h3v3h-3zM715 50h3v3h-3zM718 50h3v3h-3zM721 50h3v3h-3zM724 50h3v3h-3zM727 50h3v3h-3zM733 32h3v3h-3zM745 32h3v3h-3zM733 35h3v3h-3zM745 35h3v3h-3zM736 38h3v3h-3zM742 38h3v3h-3zM739 41h3v3h-3zM739 44h3v3h-3zM739 47h3v3h-3zM739 50h3v3h-3zM751 32h3v3h-3zM754 32h3v3h-3zM757 32h3v3h-3zM760 32h3v3h-3zM751 35h3v3h-3zM763 35h3v3h-3zM751 38h3v3h-3zM763 38h3v3h-3zM751 41h3v3h-3zM754 41h3v3h-3zM757 41h3v3h-3zM760 41h3v3h-3zM751 44h3v3h-3zM763 44h3v3h-3zM751 47h3v3h-3zM763 47h3v3h-3zM751 50h3v3h-3zM754 50h3v3h-3zM757 50h3v3h-3zM760 50h3v3h-3zM772 32h3v3h-3zM775 32h3v3h-3zM778 32h3v3h-3zM769 35h3v3h-3zM781 35h3v3h-3zM769 38h3v3h-3zM781 38h3v3h-3zM769 41h3v3h-3zM772 41h3v3h-3zM775 41h3v3h-3zM778 41h3v3h-3zM781 41h3v3h-3zM769 44h3v3h-3zM781 44h3v3h-3zM769 47h3v3h-3zM781 47h3v3h-3zM769 50h3v3h-3zM781 50h3v3h-3zM787 32h3v3h-3zM787 35h3v3h-3zM787 38h3v3h-3zM787 41h3v3h-3zM787 44h3v3h-3zM787 47h3v3h-3zM787 50h3v3h-3zM790 50h3v3h-3zM793 50h3v3h-3zM796 50h3v3h-3zM799 50h3v3h-3zM805 32h3v3h-3zM805 35h3v3h-3zM805 38h3v3h-3zM805 41h3v3h-3zM805 44h3v3h-3zM805 47h3v3h-3zM805 50h3v3h-3zM808 50h3v3h-3zM811 50h3v3h-3zM814 50h3v3h-3zM817 50h3v3h-3z" fill="#e6efe6" />
-<text x="643" y="72" font-family="'Courier New', Consolas, 'DejaVu Sans Mono', monospace" font-size="12" fill="#00ff66">// team sport</text>
-<rect x="0.5" y="98.5" width="196" height="83" fill="#0b120b" stroke="#1f3a1f"/>
-<rect x="10" y="108" width="6" height="6" fill="#00ff66"/>
-<text x="187" y="115" text-anchor="end" font-family="'Courier New', Consolas, 'DejaVu Sans Mono', monospace" font-size="11" fill="#6f8a6f">05</text>
-<path d="M10 130h3v3h-3zM22 130h3v3h-3zM10 133h3v3h-3zM13 133h3v3h-3zM19 133h3v3h-3zM22 133h3v3h-3zM10 136h3v3h-3zM16 136h3v3h-3zM22 136h3v3h-3zM10 139h3v3h-3zM16 139h3v3h-3zM22 139h3v3h-3zM10 142h3v3h-3zM22 142h3v3h-3zM10 145h3v3h-3zM22 145h3v3h-3zM10 148h3v3h-3zM22 148h3v3h-3zM28 130h3v3h-3zM40 130h3v3h-3zM28 133h3v3h-3zM40 133h3v3h-3zM28 136h3v3h-3zM40 136h3v3h-3zM28 139h3v3h-3zM40 139h3v3h-3zM28 142h3v3h-3zM40 142h3v3h-3zM28 145h3v3h-3zM40 145h3v3h-3zM31 148h3v3h-3zM34 148h3v3h-3zM37 148h3v3h-3zM49 130h3v3h-3zM52 130h3v3h-3zM55 130h3v3h-3zM58 130h3v3h-3zM46 133h3v3h-3zM46 136h3v3h-3zM49 139h3v3h-3zM52 139h3v3h-3zM55 139h3v3h-3zM58 142h3v3h-3zM58 145h3v3h-3zM46 148h3v3h-3zM49 148h3v3h-3zM52 148h3v3h-3zM55 148h3v3h-3zM67 130h3v3h-3zM70 130h3v3h-3zM73 130h3v3h-3zM70 133h3v3h-3zM70 136h3v3h-3zM70 139h3v3h-3zM70 142h3v3h-3zM70 145h3v3h-3zM67 148h3v3h-3zM70 148h3v3h-3zM73 148h3v3h-3zM85 130h3v3h-3zM88 130h3v3h-3zM91 130h3v3h-3zM82 133h3v3h-3zM94 133h3v3h-3zM82 136h3v3h-3zM82 139h3v3h-3zM82 142h3v3h-3zM82 145h3v3h-3zM94 145h3v3h-3zM85 148h3v3h-3zM88 148h3v3h-3zM91 148h3v3h-3z" fill="#e6efe6" />
-<text x="10" y="170" font-family="'Courier New', Consolas, 'DejaVu Sans Mono', monospace" font-size="12" fill="#00ff66">// playlist</text>
-<rect x="211.5" y="98.5" width="196" height="83" fill="#0b120b" stroke="#1f3a1f"/>
-<rect x="221" y="108" width="6" height="6" fill="#00ff66"/>
-<text x="398" y="115" text-anchor="end" font-family="'Courier New', Consolas, 'DejaVu Sans Mono', monospace" font-size="11" fill="#6f8a6f">06</text>
-<path d="M221 130h3v3h-3zM224 130h3v3h-3zM227 130h3v3h-3zM230 130h3v3h-3zM221 133h3v3h-3zM233 133h3v3h-3zM221 136h3v3h-3zM233 136h3v3h-3zM221 139h3v3h-3zM224 139h3v3h-3zM227 139h3v3h-3zM230 139h3v3h-3zM221 142h3v3h-3zM233 142h3v3h-3zM221 145h3v3h-3zM233 145h3v3h-3zM221 148h3v3h-3zM224 148h3v3h-3zM227 148h3v3h-3zM230 148h3v3h-3zM239 130h3v3h-3zM251 130h3v3h-3zM239 133h3v3h-3zM251 133h3v3h-3zM239 136h3v3h-3zM251 136h3v3h-3zM239 139h3v3h-3zM242 139h3v3h-3zM245 139h3v3h-3zM248 139h3v3h-3zM251 139h3v3h-3zM239 142h3v3h-3zM251 142h3v3h-3zM239 145h3v3h-3zM251 145h3v3h-3zM239 148h3v3h-3zM251 148h3v3h-3zM260 130h3v3h-3zM263 130h3v3h-3zM266 130h3v3h-3zM257 133h3v3h-3zM269 133h3v3h-3zM257 136h3v3h-3zM269 136h3v3h-3zM257 139h3v3h-3zM260 139h3v3h-3zM263 139h3v3h-3zM266 139h3v3h-3zM269 139h3v3h-3zM257 142h3v3h-3zM269 142h3v3h-3zM257 145h3v3h-3zM269 145h3v3h-3zM257 148h3v3h-3zM269 148h3v3h-3zM281 130h3v3h-3zM284 130h3v3h-3zM287 130h3v3h-3zM284 133h3v3h-3zM284 136h3v3h-3zM284 139h3v3h-3zM284 142h3v3h-3zM275 145h3v3h-3zM284 145h3v3h-3zM278 148h3v3h-3zM281 148h3v3h-3zM296 130h3v3h-3zM299 130h3v3h-3zM302 130h3v3h-3zM293 133h3v3h-3zM305 133h3v3h-3zM293 136h3v3h-3zM305 136h3v3h-3zM293 139h3v3h-3zM296 139h3v3h-3zM299 139h3v3h-3zM302 139h3v3h-3zM305 139h3v3h-3zM293 142h3v3h-3zM305 142h3v3h-3zM293 145h3v3h-3zM305 145h3v3h-3zM293 148h3v3h-3zM305 148h3v3h-3zM311 130h3v3h-3zM323 130h3v3h-3zM311 133h3v3h-3zM314 133h3v3h-3zM323 133h3v3h-3zM311 136h3v3h-3zM317 136h3v3h-3zM323 136h3v3h-3zM311 139h3v3h-3zM320 139h3v3h-3zM323 139h3v3h-3zM311 142h3v3h-3zM323 142h3v3h-3zM311 145h3v3h-3zM323 145h3v3h-3zM311 148h3v3h-3zM323 148h3v3h-3zM332 130h3v3h-3zM335 130h3v3h-3zM338 130h3v3h-3zM341 130h3v3h-3zM329 133h3v3h-3zM329 136h3v3h-3zM332 139h3v3h-3zM335 139h3v3h-3zM338 139h3v3h-3zM341 142h3v3h-3zM341 145h3v3h-3zM329 148h3v3h-3zM332 148h3v3h-3zM335 148h3v3h-3zM338 148h3v3h-3z" fill="#e6efe6" />
-<text x="221" y="170" font-family="'Courier New', Consolas, 'DejaVu Sans Mono', monospace" font-size="12" fill="#00ff66">// devotional</text>
-<rect x="422.5" y="98.5" width="196" height="83" fill="#0b120b" stroke="#1f3a1f"/>
-<rect x="432" y="108" width="6" height="6" fill="#00ff66"/>
-<text x="609" y="115" text-anchor="end" font-family="'Courier New', Consolas, 'DejaVu Sans Mono', monospace" font-size="11" fill="#6f8a6f">07</text>
-<path d="M435 130h3v3h-3zM438 130h3v3h-3zM441 130h3v3h-3zM432 133h3v3h-3zM444 133h3v3h-3zM432 136h3v3h-3zM432 139h3v3h-3zM438 139h3v3h-3zM441 139h3v3h-3zM444 139h3v3h-3zM432 142h3v3h-3zM444 142h3v3h-3zM432 145h3v3h-3zM444 145h3v3h-3zM435 148h3v3h-3zM438 148h3v3h-3zM441 148h3v3h-3zM444 148h3v3h-3zM453 130h3v3h-3zM456 130h3v3h-3zM459 130h3v3h-3zM450 133h3v3h-3zM462 133h3v3h-3zM450 136h3v3h-3zM462 136h3v3h-3zM450 139h3v3h-3zM453 139h3v3h-3zM456 139h3v3h-3zM459 139h3v3h-3zM462 139h3v3h-3zM450 142h3v3h-3zM462 142h3v3h-3zM450 145h3v3h-3zM462 145h3v3h-3zM450 148h3v3h-3zM462 148h3v3h-3zM468 130h3v3h-3zM471 130h3v3h-3zM474 130h3v3h-3zM477 130h3v3h-3zM468 133h3v3h-3zM480 133h3v3h-3zM468 136h3v3h-3zM480 136h3v3h-3zM468 139h3v3h-3zM471 139h3v3h-3zM474 139h3v3h-3zM477 139h3v3h-3zM468 142h3v3h-3zM474 142h3v3h-3zM468 145h3v3h-3zM477 145h3v3h-3zM468 148h3v3h-3zM480 148h3v3h-3zM486 130h3v3h-3zM489 130h3v3h-3zM492 130h3v3h-3zM495 130h3v3h-3zM486 133h3v3h-3zM498 133h3v3h-3zM486 136h3v3h-3zM498 136h3v3h-3zM486 139h3v3h-3zM489 139h3v3h-3zM492 139h3v3h-3zM495 139h3v3h-3zM486 142h3v3h-3zM498 142h3v3h-3zM486 145h3v3h-3zM498 145h3v3h-3zM486 148h3v3h-3zM489 148h3v3h-3zM492 148h3v3h-3zM495 148h3v3h-3zM507 130h3v3h-3zM510 130h3v3h-3zM513 130h3v3h-3zM504 133h3v3h-3zM516 133h3v3h-3zM504 136h3v3h-3zM516 136h3v3h-3zM504 139h3v3h-3zM507 139h3v3h-3zM510 139h3v3h-3zM513 139h3v3h-3zM516 139h3v3h-3zM504 142h3v3h-3zM516 142h3v3h-3zM504 145h3v3h-3zM516 145h3v3h-3zM504 148h3v3h-3zM516 148h3v3h-3z" fill="#e6efe6" />
-<text x="432" y="170" font-family="'Courier New', Consolas, 'DejaVu Sans Mono', monospace" font-size="12" fill="#00ff66">// dance</text>
-<rect x="633.5" y="98.5" width="196" height="83" fill="#0b120b" stroke="#1f3a1f"/>
-<rect x="643" y="108" width="6" height="6" fill="#00ff66"/>
-<text x="820" y="115" text-anchor="end" font-family="'Courier New', Consolas, 'DejaVu Sans Mono', monospace" font-size="11" fill="#6f8a6f">08</text>
-<path d="M643 130h3v3h-3zM646 130h3v3h-3zM649 130h3v3h-3zM652 130h3v3h-3zM655 130h3v3h-3zM643 133h3v3h-3zM643 136h3v3h-3zM643 139h3v3h-3zM646 139h3v3h-3zM649 139h3v3h-3zM652 139h3v3h-3zM643 142h3v3h-3zM643 145h3v3h-3zM643 148h3v3h-3zM646 148h3v3h-3zM649 148h3v3h-3zM652 148h3v3h-3zM655 148h3v3h-3zM661 130h3v3h-3zM673 130h3v3h-3zM661 133h3v3h-3zM664 133h3v3h-3zM673 133h3v3h-3zM661 136h3v3h-3zM667 136h3v3h-3zM673 136h3v3h-3zM661 139h3v3h-3zM670 139h3v3h-3zM673 139h3v3h-3zM661 142h3v3h-3zM673 142h3v3h-3zM661 145h3v3h-3zM673 145h3v3h-3zM661 148h3v3h-3zM673 148h3v3h-3zM682 130h3v3h-3zM685 130h3v3h-3zM688 130h3v3h-3zM679 133h3v3h-3zM691 133h3v3h-3zM679 136h3v3h-3zM679 139h3v3h-3zM685 139h3v3h-3zM688 139h3v3h-3zM691 139h3v3h-3zM679 142h3v3h-3zM691 142h3v3h-3zM679 145h3v3h-3zM691 145h3v3h-3zM682 148h3v3h-3zM685 148h3v3h-3zM688 148h3v3h-3zM691 148h3v3h-3zM697 130h3v3h-3zM697 133h3v3h-3zM697 136h3v3h-3zM697 139h3v3h-3zM697 142h3v3h-3zM697 145h3v3h-3zM697 148h3v3h-3zM700 148h3v3h-3zM703 148h3v3h-3zM706 148h3v3h-3zM709 148h3v3h-3zM718 130h3v3h-3zM721 130h3v3h-3zM724 130h3v3h-3zM721 133h3v3h-3zM721 136h3v3h-3zM721 139h3v3h-3zM721 142h3v3h-3zM721 145h3v3h-3zM718 148h3v3h-3zM721 148h3v3h-3zM724 148h3v3h-3zM736 130h3v3h-3zM739 130h3v3h-3zM742 130h3v3h-3zM745 130h3v3h-3zM733 133h3v3h-3zM733 136h3v3h-3zM736 139h3v3h-3zM739 139h3v3h-3zM742 139h3v3h-3zM745 142h3v3h-3zM745 145h3v3h-3zM733 148h3v3h-3zM736 148h3v3h-3zM739 148h3v3h-3zM742 148h3v3h-3zM751 130h3v3h-3zM763 130h3v3h-3zM751 133h3v3h-3zM763 133h3v3h-3zM751 136h3v3h-3zM763 136h3v3h-3zM751 139h3v3h-3zM754 139h3v3h-3zM757 139h3v3h-3zM760 139h3v3h-3zM763 139h3v3h-3zM751 142h3v3h-3zM763 142h3v3h-3zM751 145h3v3h-3zM763 145h3v3h-3zM751 148h3v3h-3zM763 148h3v3h-3z" fill="#00ff66" />
-<text x="643" y="160" font-family="'Courier New', Consolas, 'DejaVu Sans Mono', monospace" font-size="11" fill="#6f8a6f">// speaking skills</text>
-<rect x="643" y="168" width="177" height="6" fill="none" stroke="#1f3a1f"/>
-<rect x="644" y="169" width="30" height="4" fill="#00ff66"><animate attributeName="x" values="644;789;644" dur="2.6s" repeatCount="indefinite"/></rect>
+{body}
 </svg>
+'''
+
+out = Path("/mnt/data/hobbies_6_cards.svg")
+out.write_text(svg, encoding="utf-8")
+print(out)
