@@ -1,126 +1,176 @@
 <div align="center">
 
-<!-- Header -->
-![Header](https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=6,11,20&height=220&section=header&text=Hi,%20I'm%20Deep%20Panchal%20👋&fontSize=42&fontColor=ffffff&animation=fadeIn&fontAlignY=35&desc=Computer%20Science%20Student%20%7C%20Frontend%20Developer%20%7C%20Problem%20Solver&descAlignY=55)
+DEEP PANCHAL
+
+FULL-STACK / FRONTEND DEVELOPER • CSE STUDENT • BUILDER
+
+<p>
+  <a href="https://github.com/deeppanchal13">GitHub</a> •
+  <a href="https://www.linkedin.com/in/YOUR-LINKEDIN-USERNAME/">LinkedIn</a> •
+  <a href="mailto:YOUR-EMAIL@example.com">Gmail</a> •
+  <a href="YOUR-PORTFOLIO-URL">Website</a>
+</p>
+
+</div>
+
+WHO I AM
+
+Hey, I'm Deep Panchal — a 2nd-year B.Tech Computer Science student focused on building practical software and becoming a stronger full-stack developer.
+
+I enjoy turning ideas into real projects, learning how things work under the hood, and improving through hands-on development, DSA, hackathons, and problem solving.
+
+CODE IS THE MEDIUM — BUILDING IS THE GOAL.
+
+WHAT I DO
+
+I build modern web applications and experiment with ideas that combine useful interfaces, backend logic, and emerging technologies.
+
+⚡ Frontend development with React.js, JavaScript & Tailwind CSS
+
+🧩 Building full-stack projects and learning backend development
+
+🧠 Practicing DSA with C++
+
+🤖 Exploring AI-powered applications
+
+🚀 Participating in hackathons and building real-world solutions
+
+🔧 Learning new tools and technologies through projects rather than only tutorials
+
+VISION
+
+My goal is to become a strong software engineer who can take an idea from concept to a working product.
+
+I want to keep improving in three areas:
+
+PROBLEM SOLVING  •  SOFTWARE DEVELOPMENT  •  REAL-WORLD BUILDING
+
+I believe consistent learning, building, and solving difficult problems matters more than simply collecting technologies.
+
+BEYOND CODE
+
+Outside programming, I enjoy cricket, chess, badminton, volleyball, music, bhajans and garba.
+
+I'm also working on becoming better at communication and spoken English, because being a good developer is not only about writing code — it's also about explaining ideas clearly and working with people.
+
+HIGHLIGHTS
+
+<table>
+<tr>
+<td align="center" width="50%">
+
+🏆 HACK NEXUS 2025
+
+1st Position
+
+Built Swasthya-Neeti, an AI-driven public health chatbot focused on disease awareness and preventive health.
+
+</td>
+<td align="center" width="50%">
+
+🇮🇳 SMART INDIA HACKATHON
+
+Participant
+
+Worked on ScholarGuru, a scholarship-awareness platform designed to make scholarship information easier to discover and access.
+
+</td>
+</tr>
+</table>
+
+PROJECTS
+
+🩺 Swasthya-Neeti
+
+AI-driven public health chatbot for disease awareness, preventive guidance, vaccination reminders and health alerts.
+
+🎓 ScholarGuru
+
+Scholarship-awareness platform designed to help students discover relevant government scholarship information through a simpler experience.
+
+🩸 Blood Bank Management System
+
+C++ OOP project covering donors, recipients, blood stock management and blood requests.
+
+🏃 Run-Neeti
+
+A project focused on applying technology to a practical real-world problem.
+
+SKILL SET
+
+<table>
+<tr>
+<td align="center" width="25%">
+
+FRONTEND
+
+<img src="https://skillicons.dev/icons?i=html,css,js,react,tailwind" />
+
+</td>
+<td align="center" width="25%">
+
+PROGRAMMING
+
+<img src="https://skillicons.dev/icons?i=cpp,python" />
+
+</td>
+<td align="center" width="25%">
+
+DATA / AI
+
+<img src="https://skillicons.dev/icons?i=numpy,pandas,tensorflow,opencv" />
+
+</td>
+<td align="center" width="25%">
+
+TOOLS
+
+<img src="https://skillicons.dev/icons?i=git,github,figma,postman" />
+
+</td>
+</tr>
+</table>
+
+CURRENTLY LEARNING
+
+DSA • BACKEND DEVELOPMENT • FULL-STACK DEVELOPMENT • PYTHON • AI APPLICATIONS
+
+GITHUB ACTIVITY
+
+<div align="center">
+
+<img src="https://github-readme-stats.vercel.app/api?username=deeppanchal13&show_icons=true&hide_border=true&theme=dark&bg_color=0d1117" height="165">
+
+<img src="https://github-readme-streak-stats.herokuapp.com/?user=deeppanchal13&hide_border=true&theme=dark&background=0d1117" height="165">
+
+</div>
+
+CONTRIBUTION GRAPH
+
+<div align="center">
+
+<img src="https://github-readme-activity-graph.vercel.app/graph?username=deeppanchal13&bg_color=0d1117&color=ffffff&line=22c55e&point=ffffff&area=true&hide_border=true" width="95%">
+
+</div>
+
+CONNECT
+
+<div align="center">
 
 <a href="https://github.com/deeppanchal13">
-<img src="https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white"/>
+<img src="https://img.shields.io/badge/GitHub-0d1117?style=for-the-badge&logo=github&logoColor=white">
 </a>
-<a href="https://www.linkedin.com/">
-<img src="https://img.shields.io/badge/LinkedIn-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white"/>
+<a href="https://www.linkedin.com/in/YOUR-LINKEDIN-USERNAME/">
+<img src="https://img.shields.io/badge/LinkedIn-0d1117?style=for-the-badge&logo=linkedin&logoColor=0A66C2">
+</a>
+<a href="mailto:YOUR-EMAIL@example.com">
+<img src="https://img.shields.io/badge/Gmail-0d1117?style=for-the-badge&logo=gmail&logoColor=EA4335">
 </a>
 
 </div>
 
-## 🚀 About Me
-
-```yaml
-name: Deep Panchal
-role: B.Tech Computer Science Engineering Student
-focus:
-  - Full-Stack Development
-  - C++ & Data Structures and Algorithms
-  - AI-powered Applications
-currently_learning:
-  - JavaScript
-  - C++ & DSA
-  - Full-Stack Development
-status: 🟢 Building projects and improving every day
-```
-
-I'm a **2nd-year Computer Science Engineering student** who enjoys building practical projects and exploring modern technologies. I like turning ideas into useful applications and continuously improving my programming and problem-solving skills.
-
-## 🏆 Achievements
-
-- 🥇 **1st Position — Hack Nexus Hackathon**
-- 🥈 **2nd Position - Robo fest**
-- 🚀 Participated in **Smart India Hackathon (SIH)**
-- 💡 Built and presented real-world problem-solving projects through hackathons and academic work
-
-## 🔧 Tech Stack
-
-**Languages**
-
-![Skills](https://skillicons.dev/icons?i=c,cpp,python,js)
-
-**Frontend**
-
-![Skills](https://skillicons.dev/icons?i=html,css,react,tailwind)
-
-**Backend & Database**
-
-![Skills](https://skillicons.dev/icons?i=nodejs,express,mongodb)
-
-**Tools**
-
-![Skills](https://skillicons.dev/icons?i=git,github,vscode)
-
-## 🧩 Featured Projects
-
-| Project | Description | Technology |
-|---|---|---|
-| **🩺 Swasthya-Neeti** | AI-powered healthcare chatbot focused on making health information easier to access. | AI • Chatbot • Web |
-| **🎓 ScholarGuru** | Student-focused platform for discovering and understanding scholarship opportunities. | Web • AI |
-| **🏥 Blood Bank Management System** | C++ OOP-based system for managing donors, recipients, blood stock, requests and donation history. | C++ • OOP • File Handling |
-
-## 📊 GitHub Stats
-
 <div align="center">
 
-<img src="https://github-readme-stats.vercel.app/api?username=deeppanchal13&show_icons=true&theme=radical&hide_border=true" height="170"/>
-
-<img src="https://github-readme-stats.vercel.app/api/top-langs/?username=deeppanchal13&layout=compact&theme=radical&hide_border=true" height="170"/>
-
-</div>
-
-## 🔥 Contribution Streak
-
-<div align="center">
-
-![GitHub Streak](https://github-readme-streak-stats.herokuapp.com/?user=deeppanchal13&theme=radical&hide_border=true)
-
-</div>
-
-## 📈 GitHub Activity
-
-<div align="center">
-
-![Activity Graph](https://github-readme-activity-graph.vercel.app/graph?username=deeppanchal13&theme=react-dark&hide_border=true)
-
-</div>
-
-## 🎯 Currently Learning
-
-- ⚛️ React.js and modern frontend development
-- 🧠 C++ and Data Structures & Algorithms
-- 🌐 Full-Stack Development
-- 🤖 AI-powered application development
-- 🛠️ Building better real-world projects
-
-## 💡 What I'm Open To
-
-- 🤝 Collaborating on interesting software projects
-- 🚀 Hackathons and technical competitions
-- 🔓 Open-source contributions
-- 📚 Learning from other developers
-- 💻 Opportunities to grow as a developer
-
-## 📫 Let's Connect
-
-I'm always interested in learning, building, and collaborating on meaningful projects.
-
-<a href="https://github.com/deeppanchal13">
-<img src="https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white"/>
-</a>
-
-<a href="https://www.linkedin.com/">
-<img src="https://img.shields.io/badge/LinkedIn-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white"/>
-</a>
-
-<div align="center">
-
-### 💻 Learn. Build. Solve. Repeat.
-
-![Footer](https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=6,11,20&height=120&section=footer)
+BUILD • BREAK • LEARN • REPEAT
 
 </div>
