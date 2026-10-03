@@ -76,7 +76,7 @@ My goal is to become a strong software engineer who can take an idea from concep
 
 <img src="./assets/beyond-code.svg" width="100%" alt="Cricket, Chess, Badminton, Volleyball, Music, Bhajans, Garba, and improving spoken English">
 
-Away from the keyboard I play and follow **cricket**, **chess**, **badminton** and **volleyball**, and I like **music**, **bhajans** and **garba**. I'm also actively working on my spoken English and communication skills.
+Away from the keyboard I play and follow **cricket**, **chess**, **badminton** and **volleyball**, and I like **music**. I'm also actively working on my spoken English and communication skills.
 
 <br>
 
