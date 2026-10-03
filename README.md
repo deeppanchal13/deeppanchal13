@@ -236,9 +236,9 @@ Away from the keyboard I play and follow **cricket**, **chess**, **badminton** a
 
 <div align="center">
   <a href="https://github.com/deeppanchal13"><img src="https://img.shields.io/badge/GitHub-deeppanchal13-0f2a14?style=flat-square&logo=github&logoColor=00ff66" alt="GitHub"></a>
-  <a href="https://www.linkedin.com/in/LINKEDIN_PLACEHOLDER"><img src="https://img.shields.io/badge/LinkedIn-add_link-0f2a14?style=flat-square&logo=linkedin&logoColor=00ff66" alt="LinkedIn"></a>
-  <a href="mailto:EMAIL_PLACEHOLDER@gmail.com"><img src="https://img.shields.io/badge/Gmail-add_email-0f2a14?style=flat-square&logo=gmail&logoColor=00ff66" alt="Gmail"></a>
-  <a href="https://PORTFOLIO_PLACEHOLDER"><img src="https://img.shields.io/badge/Portfolio-add_link-0f2a14?style=flat-square&logo=googlechrome&logoColor=00ff66" alt="Portfolio"></a>
+  <a href="https://https://www.linkedin.com/in/deep-panchal-3a1474399/"><img src="https://img.shields.io/badge/LinkedIn-add_link-0f2a14?style=flat-square&logo=linkedin&logoColor=00ff66" alt="LinkedIn"></a>
+  <!-- <a href="mailto:deeppanchal13082006@gmail.com"><img src="https://img.shields.io/badge/Gmail-add_email-0f2a14?style=flat-square&logo=gmail&logoColor=00ff66" alt="Gmail"></a> -->
+  <!-- <a href="https://PORTFOLIO_PLACEHOLDER"><img src="https://img.shields.io/badge/Portfolio-add_link-0f2a14?style=flat-square&logo=googlechrome&logoColor=00ff66" alt="Portfolio"></a> -->
 </div>
 
 <br>
