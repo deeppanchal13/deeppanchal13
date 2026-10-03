@@ -16,9 +16,9 @@
   </tr>
   <tr>
     <td align="center"><a href="https://github.com/deeppanchal13"><img src="https://skillicons.dev/icons?i=github&theme=dark" width="44" height="44" alt="GitHub"></a></td>
-    <td align="center"><a href="https://www.linkedin.com/in/LINKEDIN_PLACEHOLDER"><img src="https://skillicons.dev/icons?i=linkedin&theme=dark" width="44" height="44" alt="LinkedIn"></a></td>
+    <td align="center"><a href="https://www.linkedin.com/in/deep-panchal-3a1474399/"><img src="https://skillicons.dev/icons?i=linkedin&theme=dark" width="44" height="44" alt="LinkedIn"></a></td>
     <td align="center"><a href="mailto:EMAIL_PLACEHOLDER@gmail.com"><img src="https://skillicons.dev/icons?i=gmail&theme=dark" width="44" height="44" alt="Gmail"></a></td>
-    <td align="center"><a href="https://PORTFOLIO_PLACEHOLDER"><img src="https://skillicons.dev/icons?i=chrome&theme=dark" width="44" height="44" alt="Portfolio"></a></td>
+    <!-- <td align="center"><a href="https://PORTFOLIO_PLACEHOLDER"><img src="https://skillicons.dev/icons?i=chrome&theme=dark" width="44" height="44" alt="Portfolio"></a></td> -->
   </tr>
 </table>
 </div>
